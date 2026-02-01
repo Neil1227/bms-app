@@ -1,0 +1,149 @@
+/* Grid wrapper */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 3rem;
+    /* more breathing room */
+}
+
+/* Card */
+.stat-card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+
+    padding: 2.75rem;
+    min-height: 180px;
+
+    background: var(--color-white);
+    border-radius: 18px;
+
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card__body {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+.stat-card__accent {
+    position: absolute;
+    inset: 0 auto auto 0;
+    height: 6px;
+    width: 100%;
+    border-radius: 18px 18px 0 0;
+}
+/* Icon */
+.stat-card__icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.6rem;
+    border-radius: 12px;
+
+    background: var(--color-dark);
+    color: var(--color-white);
+}
+
+/* Content */
+.stat-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    /* cleaner than margins */
+}
+
+/* Text */
+.stat-card__title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.stat-card__amount {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    line-height: 1.2;
+}
+
+.stat-card__subtitle {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+/* ===== Tablet & below ===== */
+@media (max-width: 1024px) {
+    .stats-grid {
+            gap: 1.75rem;
+        }
+    
+        .stat-card {
+            padding: 2rem;
+            min-height: 150px;
+        }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .stats-grid {
+            gap: 1.25rem;
+        }
+    
+        .stat-card {
+            padding: 1.4rem;
+            min-height: 120px;
+            border-radius: 14px;
+        }
+    
+        .stat-card__icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.25rem;
+            border-radius: 10px;
+        }
+    
+        .stat-card__amount {
+            font-size: 1.25rem;
+        }
+    
+        .stat-card__title {
+            font-size: 0.8rem;
+        }
+}
+
+/* ===== Small Mobile ===== */
+@media (max-width: 480px) {
+    .stats-grid {
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.1rem;
+        min-height: 105px;
+    }
+
+    .stat-card__body {
+        gap: 0.75rem;
+    }
+
+    .stat-card__icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+    }
+
+    .stat-card__amount {
+        font-size: 1.15rem;
+    }
+
+    .stat-card__subtitle {
+        font-size: 0.7rem;
+    }
+}

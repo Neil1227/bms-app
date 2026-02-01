@@ -1,0 +1,52 @@
+.dashboard-section {
+    margin-top: 2.5rem;
+    /* space from stat cards */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.dashboard-main,
+.dashboard-side {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Card */
+.card {
+    background: var(--color-white);
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Section title */
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-dark);
+    margin-bottom: 1rem;
+}
+
+/* List style */
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.list li {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-text);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .dashboard-section {
+        grid-template-columns: 1fr;
+    }
+}

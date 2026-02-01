@@ -1,0 +1,23 @@
+.navbar {
+    background: var(--color-dark);
+    padding: calc(var(--space-xs) * 1.5) 0;
+    /* taller */
+}
+
+.nav-container {
+    max-width: var(--container-width);
+    margin: auto;
+    padding: 0 var(--space-xs);
+    /* wider inner spacing */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 72px;
+    /* guarantees thickness */
+}
+
+.logo {
+    color: var(--color-white);
+    font-weight: var(--font-weight-bold);
+    font-size: calc(var(--font-size-lg) * 1.1);
+}

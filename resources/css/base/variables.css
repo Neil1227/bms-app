@@ -1,0 +1,55 @@
+:root {
+    /* ===============================
+       COLORS
+    =============================== */
+
+    --color-dark: #111827;
+    --color-dark-soft: #1f2933;
+
+    --color-light: #f8f9fa;
+    --color-white: #ffffff;
+
+    --color-text: #222222;
+    --color-text-muted: #6b7280;
+
+    --color-danger: #ef4444;
+    --color-danger-hover: #dc2626;
+
+    /* ===============================
+       TYPOGRAPHY
+    =============================== */
+    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* ===============================
+       SPACING
+    =============================== */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+
+    /* ===============================
+       LAYOUT
+    =============================== */
+    --container-width: 1200px;
+    --border-radius-sm: 4px;
+    --border-radius-md: 6px;
+    --border-radius-lg: 10px;
+
+    /* ===============================
+       TRANSITIONS
+    =============================== */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-base: 0.25s ease-in-out;
+}
