@@ -19,6 +19,7 @@
         subtitle="Feb 4" />
 </div>
 
+
 {{-- MAIN DASHBOARD --}}
 <section class="dashboard-section">
 
@@ -26,27 +27,10 @@
     <div class="dashboard-main">
 
         {{-- Income Resources --}}
-        <div class="card">
-            <h2 class="section-title">Income Resources</h2>
-
-            <ul class="list">
-                <li><span>Salary</span><strong>₱12,000</strong></li>
-                <li><span>Freelance</span><strong>₱4,500</strong></li>
-                <li><span>Side Hustle</span><strong>₱1,725</strong></li>
-            </ul>
-        </div>
+        <x-income-card />
 
         {{-- Budget Allocation --}}
-        <div class="card">
-            <h2 class="section-title">Budget Allocation</h2>
-
-            <ul class="list">
-                <li><span>Food</span><strong>₱4,000</strong></li>
-                <li><span>Transportation</span><strong>₱1,500</strong></li>
-                <li><span>Savings</span><strong>₱3,000</strong></li>
-                <li><span>Emergency Fund</span><strong>₱2,000</strong></li>
-            </ul>
-        </div>
+        <x-budget-card />
 
     </div>
 
@@ -54,26 +38,10 @@
     <aside class="dashboard-side">
 
         {{-- Subscriptions --}}
-        <div class="card">
-            <h2 class="section-title">Subscriptions</h2>
-
-            <ul class="list">
-                <li><span>Netflix</span><strong>₱549</strong></li>
-                <li><span>Spotify</span><strong>₱149</strong></li>
-                <li><span>Adobe</span><strong>₱1,200</strong></li>
-            </ul>
-        </div>
+        <x-subscriptions-card />
 
         {{-- Loan Management --}}
-        <div class="card">
-            <h2 class="section-title">Loan Management</h2>
-
-            <ul class="list">
-                <li><span>Personal Loan</span><strong>₱2,000</strong></li>
-                <li><span>Gadget Loan</span><strong>₱1,500</strong></li>
-                <li><span>Emergency Loan</span><strong>₱1,500</strong></li>
-            </ul>
-        </div>
+        <x-loans-card />
 
     </aside>
 </section>

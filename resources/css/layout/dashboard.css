@@ -18,16 +18,33 @@
 .card {
     background: var(--color-white);
     border-radius: 14px;
-    padding: 1.75rem;
+    padding: 1rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* Section title */
+/* Section header */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* title left, button right */
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Section title (left aligned) */
 .section-title {
     font-size: 1rem;
     font-weight: 600;
     color: var(--color-dark);
-    margin-bottom: 1rem;
+    margin: 0; /* reset default margin */
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Responsive: stack title and button on narrow screens */
+@media (max-width: 480px) {
+    .section-title {align-items: flex-start; }
+    .section-header .add-btn { align-self: flex-end; }
 }
 
 /* List style */
@@ -36,12 +53,16 @@
     flex-direction: column;
     gap: 0.75rem;
     font-size: 0.9rem;
+    padding: 0.75rem;
 }
 
 .list li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: var(--color-text);
+    border-radius: 12px;
+    padding: 0.75rem 1rem; /* ensure inner spacing so content doesn't touch edges */
 }
 
 /* Responsive */

@@ -12,8 +12,8 @@
     display: flex;
     align-items: flex-start;
 
-    padding: 2.75rem;
-    min-height: 180px;
+    padding: 2rem;
+    min-height: 50px;
 
     background: var(--color-white);
     border-radius: 18px;
@@ -37,14 +37,14 @@
 }
 /* Icon */
 .stat-card__icon {
-    width: 52px;
-    height: 52px;
+    width: 42px;
+    height: 42px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 1.6rem;
+    font-size: var(--font-size-md);
     border-radius: 12px;
 
     background: var(--color-dark);
@@ -61,20 +61,20 @@
 
 /* Text */
 .stat-card__title {
-    font-size: 0.85rem;
+    font-size: var(--font-size-sm);
     font-weight: 600;
     color: var(--color-text-muted);
 }
 
 .stat-card__amount {
-    font-size: 1.6rem;
+    font-size: var(--font-size-xl);
     font-weight: 700;
     color: var(--color-dark);
     line-height: 1.2;
 }
 
 .stat-card__subtitle {
-    font-size: 0.8rem;
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
 }
 
