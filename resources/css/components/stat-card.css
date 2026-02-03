@@ -33,8 +33,9 @@
     inset: 0 auto auto 0;
     height: 6px;
     width: 100%;
-    border-radius: 18px 18px 0 0;
+    border-radius: 20px 20px 0 0;
 }
+
 /* Icon */
 .stat-card__icon {
     width: 42px;
@@ -81,41 +82,41 @@
 /* ===== Tablet & below ===== */
 @media (max-width: 1024px) {
     .stats-grid {
-            gap: 1.75rem;
-        }
-    
-        .stat-card {
-            padding: 2rem;
-            min-height: 150px;
-        }
+        gap: 1.75rem;
+    }
+
+    .stat-card {
+        padding: 2rem;
+        min-height: 150px;
+    }
 }
 
 /* ===== Mobile ===== */
 @media (max-width: 768px) {
     .stats-grid {
-            gap: 1.25rem;
-        }
-    
-        .stat-card {
-            padding: 1.4rem;
-            min-height: 120px;
-            border-radius: 14px;
-        }
-    
-        .stat-card__icon {
-            width: 40px;
-            height: 40px;
-            font-size: 1.25rem;
-            border-radius: 10px;
-        }
-    
-        .stat-card__amount {
-            font-size: 1.25rem;
-        }
-    
-        .stat-card__title {
-            font-size: 0.8rem;
-        }
+        gap: 1.25rem;
+    }
+
+    .stat-card {
+        padding: 1.4rem;
+        min-height: 120px;
+        border-radius: 14px;
+    }
+
+    .stat-card__icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+        border-radius: 10px;
+    }
+
+    .stat-card__amount {
+        font-size: 1.25rem;
+    }
+
+    .stat-card__title {
+        font-size: 0.8rem;
+    }
 }
 
 /* ===== Small Mobile ===== */
@@ -145,5 +146,34 @@
 
     .stat-card__subtitle {
         font-size: 0.7rem;
+    }
+}
+/* ===== Tablet & below ===== */
+@media (max-width: 1024px) {
+    .stats-grid {
+        gap: 1.75rem;
+    }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+/* ===== Small Mobile ===== */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+/* ===== Extra Small Mobile ===== */
+@media (max-width: 360px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
 }

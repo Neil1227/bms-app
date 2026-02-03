@@ -1,3 +1,11 @@
+@props([
+'title',
+'value',
+'icon',
+'iconColor' => 'bg-gray-200',
+'subtitle' => null
+])
+
 <div class="stat-card relative">
     <!-- Accent bar -->
     <div class="stat-card__accent {{ $iconColor }}"></div>

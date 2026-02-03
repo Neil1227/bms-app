@@ -10,3 +10,20 @@ body {
     background: var(--color-light);
     color: var(--color-text);
 }
+@keyframes slide-up {
+    from {
+        /* animate the Tailwind translate Y variable so we don't overwrite the X centering transform */
+        --tw-translate-y: 0.75rem; /* ~12px */
+        opacity: 0;
+    }
+
+    to {
+        --tw-translate-y: 0;
+        opacity: 1;
+    }
+}
+
+.animate-slide-up {
+    animation: slide-up 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: transform, opacity;
+} 

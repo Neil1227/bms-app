@@ -6,7 +6,7 @@
             <a href="#" class="modal-close">&times;</a>
         </div>
 
-        <form method="POST">
+        <form method="POST" action="{{ route('income.store') }}">
             @csrf
 
             <div class="modal-body">

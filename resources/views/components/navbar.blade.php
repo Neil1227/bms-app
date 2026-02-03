@@ -1,7 +1,7 @@
 <nav class="navbar">
     <div class="nav-container">
         <a href="{{ url('/') }}" class="logo">
-            MyApp
+            Budget App
         </a>
     </div>
 </nav>
