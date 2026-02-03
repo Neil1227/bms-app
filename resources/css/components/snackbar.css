@@ -1,0 +1,47 @@
+/* Snackbar component styles (pure CSS) */
+
+/* container tweaks (keeps Tailwind utilities but ensures consistent inner spacing) */
+#snackbar, #snackbar-error {
+    /* ensure text doesn't touch rounded edges */
+    padding-left: 0.75rem; /* some breathing room before icon */
+    padding-right: 0.75rem;
+    align-items: center;
+}
+
+/* icon styling: white circular background with fixed size */
+.snackbar-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    min-width: 1.6rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+}
+
+/* text padding and centering */
+.snackbar-text {
+    display: block;
+    padding-right: 0.6rem;
+    text-align: center;
+}
+
+/* color adjustments for icons (kept explicit so CSS-only reflects semantic color) */
+#snackbar .snackbar-icon i {
+    color: var(--color-light); /* emerald-600 */
+    font-size: 0.95rem;
+}
+
+#snackbar-error .snackbar-icon i {
+    color: #dc2626; /* red-600 */
+    font-size: 0.95rem;
+}
+
+/* ensure responsive inner padding is not lost on smaller screens */
+/* @media (min-width: 640px) {
+    #snackbar, #snackbar-error {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+} */

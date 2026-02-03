@@ -25,44 +25,43 @@
 
     {{-- SUCCESS SNACKBAR --}}
 
-{{-- @if (session('success')) --}}
-<div id="snackbar" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50
+    @if (session('success'))
+    <div id="snackbar" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50
             bg-emerald-600 text-white text-sm
-             
-            rounded-lg shadow-lg
-            flex items-center gap-3
+            px-6 sm:px-10 py-4
+            rounded-xl shadow-2xl
+            flex items-center justify-center gap-2
             animate-slide-up transition-all duration-300 ease-in-out
             pointer-events-none
-            max-w-md w-auto m-4">
-            
+            max-w-md w-auto">
 
-    <i class="bi bi-check-circle-fill text-lg"></i>
-    <span>this is just a test</span>
-</div>
-{{-- @endif --}}
- 
+
+        <span class="snackbar-icon" aria-hidden="true"><i class="bi bi-check-circle-fill"></i></span>
+        <span class="snackbar-text">{{ session('success') }}</span>
+    </div>
+    @endif
+
 
     {{-- ERROR SNACKBAR --}}
-@if (session('error'))
-<div id="snackbar-error" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50
+    @if (session('error'))
+    <div id="snackbar-error" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50
             bg-red-600 text-white text-sm
-            px-10 py-4
-            rounded-xl shadow-lg
-            flex items-center gap-3
+            px-6 sm:px-10 py-4
+            rounded-xl shadow-2xl
+            flex items-center justify-center gap-4
             animate-slide-up transition-all duration-300 ease-in-out
             pointer-events-none
-            max-w-md w-full mx-4">
-
-    <i class="bi bi-exclamation-circle-fill text-lg"></i>
-    <span>{{ session('error') }}</span>
-</div>
-@endif
+            max-w-md w-auto">
+        <span class="snackbar-icon" aria-hidden="true"><i class="bi bi-exclamation-circle-fill"></i></span>
+        <span class="snackbar-text">{{ session('error') }}</span>
+    </div>
+    @endif
 
     {{-- Snackbar Auto Dismiss --}}
     <script>
         setTimeout(() => {
             document.querySelectorAll('#snackbar, #snackbar-error').forEach(el => {
-                // fade out and slide down a bit for a smooth exit
+
                 el.classList.add('opacity-0', 'translate-y-6');
                 setTimeout(() => el.remove(), 350);
             });

@@ -18,7 +18,7 @@
 <section class="dashboard-section">
     <div class="dashboard-main">
         <x-income-card :incomes="$incomes" />
-        <x-budget-card />
+        <x-budget-card :cutoffs="$cutoffs" />
     </div>
 
     <aside class="dashboard-side">

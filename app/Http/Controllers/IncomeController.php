@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Income;
 use Illuminate\Http\Request;
+use App\Models\Budget;
 
 class IncomeController extends Controller
 {
@@ -11,10 +12,34 @@ class IncomeController extends Controller
     public function index()
     {
         $incomes = Income::latest()->get();
-        $totalIncome = Income::sum('amount');
+        $totalIncome = $incomes->sum('amount');
 
-        return view('dashboard', compact('incomes', 'totalIncome'));
+        $budgets = Budget::all();
+
+        $firstCutoff  = $budgets->where('cutoff', '1-15');
+        $secondCutoff = $budgets->where('cutoff', '16-30');
+        $cutoffs = [
+            [
+                'label' => '1st Cut-off',
+                'key'   => '1-15',
+                'items' => $budgets->where('cutoff', '1-15'),
+                'total' => $budgets->where('cutoff', '1-15')->sum('amount'),
+            ],
+            [
+                'label' => '2nd Cut-off',
+                'key'   => '16-30',
+                'items' => $budgets->where('cutoff', '16-30'),
+                'total' => $budgets->where('cutoff', '16-30')->sum('amount'),
+            ],
+        ];
+
+        return view('dashboard', compact(
+            'incomes',
+            'totalIncome',
+            'cutoffs'
+        ));
     }
+
 
     public function store(Request $request)
     {
