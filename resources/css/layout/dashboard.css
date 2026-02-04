@@ -1,5 +1,5 @@
 .dashboard-section {
-    margin-top: 2.5rem;
+    margin-top: 1.25rem;
     /* space from stat cards */
     display: grid;
     grid-template-columns: 2fr 1fr;

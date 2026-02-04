@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Income;
 use Illuminate\Http\Request;
 use App\Models\Budget;
+use Carbon\Carbon;
+use App\Models\Subscription;
+use App\Models\PaydaySetting;
 
 class IncomeController extends Controller
 {
@@ -15,9 +18,10 @@ class IncomeController extends Controller
         $totalIncome = $incomes->sum('amount');
 
         $budgets = Budget::all();
+        $totalBudgetAllocated = $budgets->sum('amount');
 
-        $firstCutoff  = $budgets->where('cutoff', '1-15');
-        $secondCutoff = $budgets->where('cutoff', '16-30');
+        $availableBalance = $totalIncome - $totalBudgetAllocated;
+
         $cutoffs = [
             [
                 'label' => '1st Cut-off',
@@ -32,13 +36,100 @@ class IncomeController extends Controller
                 'total' => $budgets->where('cutoff', '16-30')->sum('amount'),
             ],
         ];
+        $today = Carbon::today();
+
+        // Determine next cutoff
+        // ================================
+        // NEXT CUTOFF — SALARY ONLY
+        // ================================
+
+        $payday = PaydaySetting::first(); // single user for now
+        $today = Carbon::today();
+
+        $nextPayday = null;
+        $daysBeforePayday = null;
+
+        if ($payday) {
+
+            if ($payday->frequency === 'monthly') {
+
+                $nextPayday = Carbon::create(
+                    $today->year,
+                    $today->month,
+                    $payday->payday_1
+                );
+
+                if ($nextPayday->lt($today)) {
+                    $nextPayday->addMonth();
+                }
+            }
+
+            if ($payday->frequency === 'semi_monthly') {
+
+                $first = Carbon::create(
+                    $today->year,
+                    $today->month,
+                    $payday->payday_1
+                );
+
+                $second = Carbon::create(
+                    $today->year,
+                    $today->month,
+                    $payday->payday_2
+                );
+
+                if ($today->lte($first)) {
+                    $nextPayday = $first;
+                } elseif ($today->lte($second)) {
+                    $nextPayday = $second;
+                } else {
+                    $nextPayday = Carbon::create(
+                        $today->year,
+                        $today->month + 1,
+                        $payday->payday_1
+                    );
+                }
+            }
+
+            if ($payday->frequency === 'bi_weekly') {
+
+                $nextPayday = Carbon::parse($payday->start_date);
+
+                while ($nextPayday->lt($today)) {
+                    $nextPayday->addWeeks(2);
+                }
+            }
+
+            $daysBeforePayday = $today->diffInDays($nextPayday, false);
+        }
+
+
+        // Get ALL subscriptions (active + inactive)
+        $subscriptions = Subscription::all();
+
+        // Only ACTIVE subscriptions affect totals
+        $totalSubscriptions = $subscriptions
+            ->where('is_active', true)
+            ->sum(function ($s) {
+                return $s->billing_cycle === 'yearly'
+                    ? $s->amount / 12
+                    : $s->amount;
+            });
+
 
         return view('dashboard', compact(
             'incomes',
             'totalIncome',
-            'cutoffs'
+            'totalBudgetAllocated',
+            'availableBalance',
+            'subscriptions',
+            'totalSubscriptions',
+            'cutoffs',
+            'nextPayday',
+            'daysBeforePayday'
         ));
     }
+
 
 
     public function store(Request $request)

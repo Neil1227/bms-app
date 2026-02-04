@@ -1,3 +1,8 @@
+@props([
+'subscriptions' => collect(),
+'totalSubscriptions' => 0
+])
+
 <div class="card">
     <!-- Header -->
     <div class="section-header flex items-start justify-between mb-5">
@@ -5,7 +10,9 @@
             <h2 class="section-title">Subscriptions</h2>
             <p class="text-sm text-gray-500">
                 Total per month:
-                <span class="font-semibold text-emerald-600">₱698</span>
+                <span class="font-semibold text-emerald-600">
+                    ₱{{ number_format($totalSubscriptions, 2) }}
+                </span>
             </p>
         </div>
 
@@ -14,42 +21,87 @@
             <span>Add</span>
         </a>
     </div>
+
     <!-- List -->
     <ul class="list">
-        <!-- Item -->
-        <li
-            class="subscription-item flex items-center justify-between rounded-xl bg-gray-50 p-4 transition hover:bg-gray-100">
+        @forelse ($subscriptions as $subscription)
+
+        @php
+        $billingDate = \Carbon\Carbon::parse($subscription->billing_date)->startOfDay();
+        $today = now()->startOfDay();
+
+        $dueIn = (int) $today->diffInDays($billingDate, false);
+        $cutoff = $billingDate->day <= 15 ? '1st' : '2nd' ; @endphp <li
+            class="subscription-item flex items-center justify-between rounded-xl bg-gray-50 p-4">
             <div class="flex items-center gap-4">
-                <div
-                    class="icon-wrapper flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                <div class="icon-wrapper h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
                     <i class="bi bi-play-btn"></i>
                 </div>
 
                 <div>
-                    <p class="font-medium text-gray-800">Netflix</p>
-                    <p class="text-xs text-gray-500">Monthly • 1st • 2/01/2024</p>
-                    <p class="text-xs text-gray-400">
-                        Due: <span class="font-medium text-rose-500">4 days</span>
+                    <p class="font-medium">{{ $subscription->name }}</p>
+
+                    <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                        <span class="px-3 py-1 rounded-full">
+                            {{ ucfirst($subscription->billing_cycle) }}
+                        </span>
+
+                        <span class="px-3 py-1 rounded-full">
+                            {{ $cutoff }} Cut-off
+                        </span>
+
+                        <span class="px-3 py-1 rounded-full">
+                            {{ $billingDate->format('M d, Y') }}
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-gray-400 px-2">
+                        Due in:
+                        <span class="font-medium {{ $dueIn <= 0 ? 'text-rose-500' : 'text-blue-500' }}">
+                            {{ $dueIn === 0
+                            ? 'Today'
+                            : ($dueIn < 0 ? 'Overdue' : $dueIn . ' days' ) }} </span>
                     </p>
                 </div>
             </div>
 
-            <!-- Right actions -->
             <div class="flex flex-col items-end gap-2">
                 <div class="flex items-center gap-4">
-                    <span class="font-semibold text-emerald-600">₱549</span>
+                    <span class="font-semibold text-emerald-600">
+                        ₱{{ number_format($subscription->amount, 2) }}
+                    </span>
 
-                    <button class="list-trash-btn text-gray-400 hover:text-red-500 transition">
-                        <i class="bi bi-trash"></i>
-                    </button>
+                    <form method="POST" action="{{ route('subscriptions.destroy', $subscription) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="text-gray-400 hover:text-red-500">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
                 </div>
 
-                <label class="toggle-switch">
-                    <input type="checkbox" name="is_recurring" id="recurringIncome">
-                    <span class="toggle-slider"></span>
-                </label>
+                <!-- Active Toggle -->
+                <form method="POST" action="{{ route('subscriptions.toggle', $subscription) }}">
+                    @csrf
+                    @method('PATCH')
+
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="is_active" onchange="this.form.submit()" {{
+                            $subscription->is_active ?
+                        'checked' : '' }}>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </form>
             </div>
-        </li>
+            </li>
+
+            @empty
+            <li class="text-sm text-gray-400 text-center py-6">
+                No active subscriptions yet
+            </li>
+            @endforelse
     </ul>
 </div>
+
+{{-- Modal stays as include --}}
 @include('components.modals.subscription-modal')

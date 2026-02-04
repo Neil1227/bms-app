@@ -10,18 +10,37 @@
     </div>
 
     <ul class="list">
+        @php
+        $incomeMeta = [
+        'salary' => [
+        'icon' => 'bi-wallet2',
+        'color' => 'bg-emerald-100 text-emerald-600',
+        ],
+        'freelance' => [
+        'icon' => 'bi-laptop',
+        'color' => 'bg-blue-100 text-blue-600',
+        ],
+        'investment' => [
+        'icon' => 'bi-graph-up-arrow',
+        'color' => 'bg-purple-100 text-purple-600',
+        ],
+        'others' => [
+        'icon' => 'bi-cash',
+        'color' => 'bg-gray-200 text-gray-600',
+        ],
+        ];
+        @endphp
         @forelse ($incomes as $income)
         <li
             class="flex items-center justify-between p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors animate-fade-in">
 
             <div class="flex items-center gap-4">
-                <div class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-600">
-                    <i class="bi
-                        {{ $income->category === 'salary' ? 'bi-briefcase' : '' }}
-                        {{ $income->category === 'freelance' ? 'bi-laptop' : '' }}
-                        {{ $income->category === 'investment' ? 'bi-graph-up' : '' }}
-                        {{ $income->category === 'others' ? 'bi-wallet2' : '' }}">
-                    </i>
+                @php
+                $meta = $incomeMeta[$income->category] ?? $incomeMeta['others'];
+                @endphp
+                
+                <div class="w-10 h-10 flex items-center justify-center rounded-full {{ $meta['color'] }}">
+                    <i class="bi {{ $meta['icon'] }}"></i>
                 </div>
 
                 <div>

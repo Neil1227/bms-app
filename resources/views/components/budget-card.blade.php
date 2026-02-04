@@ -37,9 +37,11 @@
 
                     <div>
                         <p class="font-medium">{{ $budget->name }}</p>
-                        <p class="text-sm text-gray-500">
-                            {{ $budget->frequency }} |
-                            {{ $budget->date ? \Carbon\Carbon::parse($budget->date)->format('M j') : '' }}
+                        <p class="text-xs text-gray-500">
+                            {{ ucfirst($budget->source_cycle ?? $budget->frequency) }}
+                            @if($budget->date)
+                            | {{ \Carbon\Carbon::parse($budget->date)->format('M j') }}
+                            @endif
                         </p>
                     </div>
                 </div>

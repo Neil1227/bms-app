@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\BudgetController;
-
+use App\Http\Controllers\PaydayController;
 /*
 |--------------------------------------------------------------------------
 | Dashboard
@@ -31,3 +31,23 @@ Route::prefix('budgets')->name('budgets.')->group(function () {
     Route::post('/', [BudgetController::class, 'store'])->name('store');
     Route::delete('{budget}', [BudgetController::class, 'destroy'])->name('destroy');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Subscription Routes
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\SubscriptionController;
+
+Route::post('/subscriptions', [SubscriptionController::class, 'store'])
+    ->name('subscriptions.store');
+
+Route::delete('/subscriptions/{subscription}', [SubscriptionController::class, 'destroy'])
+    ->name('subscriptions.destroy');
+Route::patch('/subscriptions/{subscription}/toggle', [SubscriptionController::class, 'toggle'])
+    ->name('subscriptions.toggle');
+
+
+Route::post('/payday', [PaydayController::class, 'store'])->name('payday.store');

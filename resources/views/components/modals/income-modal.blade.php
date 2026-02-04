@@ -10,9 +10,19 @@
             @csrf
 
             <div class="modal-body">
-                <div class="mb-3">
-                    <label>Income Source</label>
-                    <input type="text" name="income_source" placeholder="e.g. Monthly Salary" required>
+                <!-- Income Source + Icon Preview -->
+                <div class="grid grid-cols-[1fr_auto] gap-4 items-end">
+                    <div class="mb-3">
+                        <label>Income Source</label>
+                        <input type="text" name="income_source" placeholder="e.g. Monthly Salary" class="w-full" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <div id="income-preview"
+                            class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-100 text-gray-600">
+                            <i class="bi bi-three-dots"></i>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -22,7 +32,7 @@
 
                 <div class="mb-3">
                     <label>Category</label>
-                    <select name="category" required>
+                    <select name="category" id="income-category" required>
                         <option value="" disabled selected>Select category</option>
                         <option value="salary">Salary</option>
                         <option value="freelance">Freelance</option>
@@ -53,3 +63,37 @@
         </form>
     </div>
 </div>
+<script>
+    const incomeIcons = {
+        salary: {
+            icon: 'bi-wallet2',
+            color: 'bg-emerald-100 text-emerald-600'
+        },
+        freelance: {
+            icon: 'bi-laptop',
+            color: 'bg-blue-100 text-blue-600'
+        },
+        investment: {
+            icon: 'bi-graph-up-arrow',
+            color: 'bg-purple-100 text-purple-600'
+        },
+        others: {
+            icon: 'bi-cash',
+            color: 'bg-gray-200 text-gray-600'
+        }
+    };
+
+    const incomeCategory = document.getElementById('income-category');
+    const incomePreview = document.getElementById('income-preview');
+
+    incomeCategory.addEventListener('change', function () {
+        const config = incomeIcons[this.value];
+
+        if (!config) return;
+
+        incomePreview.className =
+            `w-12 h-12 flex items-center justify-center rounded-full ${config.color}`;
+
+        incomePreview.innerHTML = `<i class="bi ${config.icon}"></i>`;
+    });
+</script>

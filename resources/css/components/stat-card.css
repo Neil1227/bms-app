@@ -45,11 +45,11 @@
     align-items: center;
     justify-content: center;
 
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-xl);
     border-radius: 12px;
 
-    background: var(--color-dark);
-    color: var(--color-white);
+    /* background: var(--color-dark); */
+    /* color: var(--color-white); */
 }
 
 /* Content */
@@ -70,13 +70,28 @@
 .stat-card__amount {
     font-size: var(--font-size-xl);
     font-weight: 700;
-    color: var(--color-dark);
+    /* color: var(--color-dark); */
     line-height: 1.2;
 }
 
 .stat-card__subtitle {
     font-size: var(--font-size-xs);
     color: var(--color-text-muted);
+}
+
+.payday-settings-section {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1.25rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+.payday-settings-section a {
+    transition: color 0.2s ease;
+}
+
+.payday-settings-section a:hover {
+    color: #374151;
 }
 
 /* ===== Tablet & below ===== */
