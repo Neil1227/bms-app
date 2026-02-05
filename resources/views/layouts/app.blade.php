@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -57,6 +57,27 @@
     </div>
     @endif
 
+    {{-- Generic delete modal  --}}
+    @include('components.modals.delete.delete-modal')
+
+    {{-- Delete Modal Script --}}
+    <script>
+        document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.list-trash-btn');
+        if (!btn) return;
+
+        e.preventDefault();
+
+        const id = btn.dataset.id;
+        const action = btn.dataset.action;
+        const title = btn.dataset.title || 'Delete Item';
+
+        document.getElementById('deleteModalTitle').textContent = title;
+        document.getElementById('deleteForm').action = `/${action}/${id}`;
+
+        window.location.hash = 'deleteModal';
+        });
+    </script>
     {{-- Snackbar Auto Dismiss --}}
     <script>
         setTimeout(() => {

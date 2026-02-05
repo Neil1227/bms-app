@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\PaydayController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\LoanController;
+
 /*
 |--------------------------------------------------------------------------
 | Dashboard
@@ -39,8 +42,6 @@ Route::prefix('budgets')->name('budgets.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-use App\Http\Controllers\SubscriptionController;
-
 Route::post('/subscriptions', [SubscriptionController::class, 'store'])
     ->name('subscriptions.store');
 
@@ -51,3 +52,15 @@ Route::patch('/subscriptions/{subscription}/toggle', [SubscriptionController::cl
 
 
 Route::post('/payday', [PaydayController::class, 'store'])->name('payday.store');
+
+/*
+|--------------------------------------------------------------------------
+| Loan Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/loans', [LoanController::class, 'store'])->name('loans.store');
+Route::delete('/loans/{loan}', [LoanController::class, 'destroy'])->name('loans.destroy');
+// routes/web.php
+Route::post('/loans/{loan}/pay', [LoanController::class, 'pay'])
+    ->name('loans.pay');

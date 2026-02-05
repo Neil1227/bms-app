@@ -18,8 +18,7 @@
     /* ===============================
        TYPOGRAPHY
     =============================== */
-    --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-
+    --font-family-base: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
     --font-size-md: 1rem;
@@ -52,4 +51,21 @@
     =============================== */
     --transition-fast: 0.15s ease-in-out;
     --transition-base: 0.25s ease-in-out;
+}
+.dark {
+   /* ===============================
+       COLORS – DARK MODE
+    =============================== */
+
+   --color-dark: #f9fafb;
+   --color-dark-soft: #e5e7eb;
+
+   --color-light: #111827;
+   --color-white: #1f2933;
+
+   --color-text: #e5e7eb;
+   --color-text-muted: #9ca3af;
+
+   --color-danger: #f87171;
+   --color-danger-hover: #ef4444;
 }

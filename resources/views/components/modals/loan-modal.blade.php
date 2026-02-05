@@ -6,9 +6,8 @@
             <a href="#" class="modal-close">&times;</a>
         </div>
 
-        <form method="POST">
-            @csrf
-
+    <form method="POST" action="{{ route('loans.store') }}">
+        @csrf
             <div class="modal-body">
                 <!-- Loan Name -->
                 <div class="mb-3">

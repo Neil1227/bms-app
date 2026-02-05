@@ -26,7 +26,7 @@ default => 'bg-gray-300',
 };
 
 @endphp
-<div class="stat-card relative">
+<div class="stat-card relative animate-fade-in">
     <!-- Accent bar -->
     <div class="stat-card__accent {{ $accentColor }}"></div>
 

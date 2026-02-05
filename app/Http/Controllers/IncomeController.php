@@ -8,6 +8,7 @@ use App\Models\Budget;
 use Carbon\Carbon;
 use App\Models\Subscription;
 use App\Models\PaydaySetting;
+use App\Models\Loan;
 
 class IncomeController extends Controller
 {
@@ -37,6 +38,9 @@ class IncomeController extends Controller
             ],
         ];
         $today = Carbon::today();
+        $loans = Loan::latest()->get();
+        $loanCount = $loans->count();
+        $totalLoanDebt = $loans->sum('remaining_amount');
 
         // ================================
         // NEXT CUTOFF — SALARY ONLY
@@ -125,7 +129,10 @@ class IncomeController extends Controller
             'totalSubscriptions',
             'cutoffs',
             'nextPayday',
-            'daysBeforePayday'
+            'daysBeforePayday',
+            'loans',
+            'loanCount',
+            'totalLoanDebt'
         ));
     }
 

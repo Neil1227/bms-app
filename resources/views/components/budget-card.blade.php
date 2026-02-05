@@ -29,7 +29,7 @@
         <ul class="list">
             @forelse ($cutoff['items'] as $budget)
 
-            <li class="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
+            <li class="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition animate-fade-in">
 
                 <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-full flex items-center justify-center 
@@ -53,21 +53,17 @@
                     <span class="font-semibold text-emerald-600">
                         ₱{{ number_format($budget->amount) }}
                     </span>
-
-                    <form action="{{ route('budgets.destroy', $budget->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="list-trash-btn">
+                        <button class="list-trash-btn" data-id="{{ $budget->id }}" data-action="budgets" data-title="Delete Budget">
                             <i class="bi bi-trash"></i>
                         </button>
-                    </form>
                 </div>
 
             </li>
             @empty
-            <li class="p-4 text-center text-sm text-gray-500">
-                No budgets set for this cut-off.
-            </li>
+
+            <p class="text-center text-sm text-gray-500 p-6">
+                        No budgets set for this cut-off.
+                    </p>
             @endforelse
         </ul>
 

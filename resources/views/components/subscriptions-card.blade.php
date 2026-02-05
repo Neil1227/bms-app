@@ -45,7 +45,7 @@ $categoryStyles = config('subscription-icons');
         $cutoff = $billingDate->day <= 15 ? '1st' : '2nd' ; 
         @endphp
          <li
-            class="subscription-item flex items-center justify-between rounded-xl bg-gray-50 p-4">
+            class="subscription-item flex items-center justify-between rounded-xl bg-gray-50 p-4 animate-fade-in">
             <div class="flex items-center gap-4">
                 <div class="h-10 w-11 rounded-full flex items-center justify-center
                             {{ $style['bg'] }} {{ $style['text'] }}">
@@ -84,14 +84,10 @@ $categoryStyles = config('subscription-icons');
                     <span class="font-semibold text-emerald-600">
                         ₱{{ number_format($subscription->amount, 2) }}
                     </span>
-
-                    <form method="POST" action="{{ route('subscriptions.destroy', $subscription) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="text-gray-400 hover:text-red-500">
+                        <button class="list-trash-btn" data-id="{{ $subscription->id }}" data-action="subscriptions"
+                            data-title="Delete Subscription">
                             <i class="bi bi-trash"></i>
                         </button>
-                    </form>
                 </div>
 
                 <!-- Active Toggle -->
@@ -110,9 +106,9 @@ $categoryStyles = config('subscription-icons');
             </li>
 
             @empty
-            <li class="text-sm text-gray-400 text-center py-6">
+            <p class="text-center text-sm text-gray-500 p-6">
                 No active subscriptions yet
-            </li>
+            </p>
             @endforelse
     </ul>
 </div>

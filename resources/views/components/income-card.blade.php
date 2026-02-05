@@ -58,21 +58,17 @@
                 <div class="text-emerald-600 font-semibold">
                     ₱{{ number_format($income->amount, 2) }}
                 </div>
-
-                <form method="POST" action="{{ route('income.destroy', $income->id) }}">
-                    @csrf
-                    @method('DELETE')
-                    <button class="list-trash-btn">
+                    <button class="list-trash-btn" data-id="{{ $income->id }}" data-action="income" data-title="Delete Income">
                         <i class="bi bi-trash"></i>
                     </button>
-                </form>
             </div>
 
         </li>
         @empty
-        <li class="p-4 text-sm text-gray-500 text-center">
+  
+        <p class="text-center text-sm text-gray-500 p-6">
             No income records yet.
-        </li>
+        </p>
         @endforelse
     </ul>
 </div>
