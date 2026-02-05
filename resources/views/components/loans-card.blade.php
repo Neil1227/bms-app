@@ -48,7 +48,7 @@ $totalDebt = $loans->sum('remaining_amount');
                     </div>
 
                     <div>
-                        <p class="text-sm font-medium text-gray-800">
+                        <p class="text-sm font-medium text-gray-500">
                             {{ $loan->loan_name }}
                         </p>
                         <p class="text-xs text-gray-500">
@@ -71,7 +71,7 @@ $totalDebt = $loans->sum('remaining_amount');
 
                 <div class="mt-2 flex justify-between text-xs text-gray-500">
                     <span>Progress</span>
-                    <span class="font-medium text-gray-700">
+                    <span class="font-medium text-gray-500">
                         {{ number_format($progress, 1) }}% paid
                     </span>
                 </div>
@@ -85,7 +85,7 @@ $totalDebt = $loans->sum('remaining_amount');
                     <i class="bi bi-currency-dollar text-gray-400"></i>
                     <div>
                         <p class="text-xs text-gray-500">Monthly</p>
-                        <p class="text-xs font-medium text-emerald-800">
+                        <p class="text-xs font-medium text-emerald-600">
                             ₱{{ number_format($loan->monthly_payment, 2) }}
                         </p>
                     </div>
@@ -97,7 +97,7 @@ $totalDebt = $loans->sum('remaining_amount');
                     <div>
                         <p class="text-xs text-gray-500">Next Due</p>
                         <p class="text-xs font-medium
-                            {{ $daysLeft < 0 ? 'text-red-500' : 'text-gray-700' }}">
+                            {{ $daysLeft < 0 ? 'text-red-500' : 'text-gray-500' }}">
                             @if ($daysLeft < 0) Overdue @elseif ($daysLeft===0) Due today @elseif ($daysLeft===1) Due
                                 tomorrow @else Due in {{ $daysLeft }} days @endif </p>
                     </div>
