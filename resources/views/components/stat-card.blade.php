@@ -16,7 +16,6 @@ $bgColor = match ($iconColor) {
 'text-violet-600' => 'bg-violet-100',
 default => 'bg-gray-100',
 };
-
 $accentColor = match ($iconColor) {
 'text-red-600' => 'bg-red-600',
 'text-green-600' => 'bg-green-600',

@@ -38,7 +38,6 @@ class IncomeController extends Controller
         ];
         $today = Carbon::today();
 
-        // Determine next cutoff
         // ================================
         // NEXT CUTOFF — SALARY ONLY
         // ================================

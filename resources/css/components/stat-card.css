@@ -70,7 +70,6 @@
 .stat-card__amount {
     font-size: var(--font-size-xl);
     font-weight: 700;
-    /* color: var(--color-dark); */
     line-height: 1.2;
 }
 

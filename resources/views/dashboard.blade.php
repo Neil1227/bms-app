@@ -4,13 +4,15 @@
 {{-- STAT CARDS --}}
 
 @php
-$balanceColor = $availableBalance < 0 ? 'text-red-600' : 'text-green-600' ; @endphp <div
+$balanceColor = $availableBalance < 0 ? 'text-red-600' : 'text-green-600' ; @endphp 
+
+<div
     class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
     <x-stat-card title="Total Income" :value="'₱' . number_format($totalIncome, 2)" icon="bi-cash-stack"
         icon-color="text-teal-500" />
 
     <x-stat-card title="Available Balance" :value="'₱' . number_format($availableBalance, 2)" icon="bi-wallet2"
-        :icon-color="$balanceColor" :value-color="$balanceColor" subtitle="After budget allocation" />
+        :icon-color="$balanceColor" :valueColor="$balanceColor" subtitle="After budget allocation" />
 
     <x-stat-card title="Total Loans" value="₱5,000" icon="bi-journal-text" icon-color="text-yellow-500"
         subtitle="3 Active Loans" />
