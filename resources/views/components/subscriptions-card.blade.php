@@ -2,7 +2,9 @@
 'subscriptions' => collect(),
 'totalSubscriptions' => 0
 ])
-
+@php
+$categoryStyles = config('subscription-icons');
+@endphp
 <div class="card">
     <!-- Header -->
     <div class="section-header flex items-start justify-between mb-5">
@@ -27,19 +29,31 @@
         @forelse ($subscriptions as $subscription)
 
         @php
+        $categoryStyles = config('subscription-icons');
+
+        $rawCategory = strtolower(trim($subscription->category ?? ''));
+
+        $categoryKey = array_key_exists($rawCategory, $categoryStyles)
+        ? $rawCategory
+        : 'other';
+
+        $style = $categoryStyles[$categoryKey];
+
         $billingDate = \Carbon\Carbon::parse($subscription->billing_date)->startOfDay();
         $today = now()->startOfDay();
-
         $dueIn = (int) $today->diffInDays($billingDate, false);
-        $cutoff = $billingDate->day <= 15 ? '1st' : '2nd' ; @endphp <li
+        $cutoff = $billingDate->day <= 15 ? '1st' : '2nd' ; 
+        @endphp
+         <li
             class="subscription-item flex items-center justify-between rounded-xl bg-gray-50 p-4">
             <div class="flex items-center gap-4">
-                <div class="icon-wrapper h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
-                    <i class="bi bi-play-btn"></i>
+                <div class="h-10 w-11 rounded-full flex items-center justify-center
+                            {{ $style['bg'] }} {{ $style['text'] }}">
+                    <i class="bi {{ $style['icon'] }}"></i>
                 </div>
 
                 <div>
-                    <p class="font-medium">{{ $subscription->name }}</p>
+                    <p class="font-medium">{{ ucfirst($subscription->name) }}</p>
 
                     <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500">
                         <span class="px-3 py-1 rounded-full">

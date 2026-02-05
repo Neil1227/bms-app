@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/SubscriptionController.php
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
@@ -17,36 +16,46 @@ class SubscriptionController extends Controller
             'amount'        => 'required|numeric|min:0',
             'billing_cycle' => 'required|in:monthly,yearly',
             'billing_date'  => 'required|date',
+            'category'      => 'required|string|max:255',
+            'icon'          => 'required|string',
         ]);
 
-        // Save subscription
+
+        // Create subscription
         $subscription = Subscription::create([
-            ...$validated,
-            'is_active' => $request->has('is_active'),
+            'name'          => $validated['name'],
+            'amount'        => $validated['amount'],
+            'billing_cycle' => $validated['billing_cycle'],
+            'billing_date'  => $validated['billing_date'],
+            'category'      => $validated['category'],
+            'icon'          => $validated['icon'],
+            'is_active'     => $request->has('is_active'),
         ]);
 
-        // Determine cutoff based on billing date
+        // Determine cutoff
         $billingDate = Carbon::parse($validated['billing_date']);
         $cutoff = $billingDate->day <= 15 ? '1-15' : '16-30';
 
-        // Normalize yearly to monthly
+        // Normalize yearly → monthly
         $budgetAmount = $validated['billing_cycle'] === 'yearly'
             ? $validated['amount'] / 12
             : $validated['amount'];
 
-        // Auto-add to budgets
+        // Auto-create budget entry
         Budget::create([
             'name'      => $validated['name'],
             'amount'    => round($budgetAmount, 2),
-            'frequency' => $subscription->billing_cycle, // 'monthly' or 'yearly'
+            'frequency' => $validated['billing_cycle'],
             'date'      => $validated['billing_date'],
             'cutoff'    => $cutoff,
-            'icon'      => 'bi-play-btn',
+            'icon'      => $validated['icon'], // ✅ SAME ICON
             'color'     => 'gray',
         ]);
 
+
         return back()->with('success', 'Subscription added and allocated to budget.');
     }
+
     public function toggle(Subscription $subscription)
     {
         $subscription->update([
@@ -58,10 +67,11 @@ class SubscriptionController extends Controller
 
     public function destroy(Subscription $subscription)
     {
-        $subscription->delete();
-
-        // Optional: also delete related budget by name
+        // Delete related budget first (optional but cleaner)
         Budget::where('name', $subscription->name)->delete();
+
+        // Permanently delete subscription
+        $subscription->delete();
 
         return back()->with('success', 'Subscription removed.');
     }

@@ -28,15 +28,18 @@
         {{-- List --}}
         <ul class="list">
             @forelse ($cutoff['items'] as $budget)
+
             <li class="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
 
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 flex items-center justify-center rounded-full {{ $budget->colorClasses }}">
-                        <i class="bi {{ $budget->icon }}"></i>
-                    </div>
+                <div class="w-10 h-10 rounded-full flex items-center justify-center 
+                    bg-{{ $budget->color }}-100 text-{{ $budget->color }}-600" data-category="{{ $budget->category }}">
+                    <i class="bi {{ $budget->icon }}"></i>
+                </div>
+
 
                     <div>
-                        <p class="font-medium">{{ $budget->name }}</p>
+                        <p class="font-medium">{{ ucfirst($budget->name) }}</p>
                         <p class="text-xs text-gray-500">
                             {{ ucfirst($budget->source_cycle ?? $budget->frequency) }}
                             @if($budget->date)
@@ -72,5 +75,49 @@
     @endforeach
 
 </div>
+<script>
+    const categoryMap = {
+    entertainment: {
+        icon: 'bi-film',
+        bg: 'bg-purple-100',
+        text: 'text-purple-600',
+    },
+    music: {
+        icon: 'bi-music-note-beamed',
+        bg: 'bg-pink-100',
+        text: 'text-pink-600',
+    },
+    internet: {
+        icon: 'bi-wifi',
+        bg: 'bg-blue-100',
+        text: 'text-blue-600',
+    },
+    utilities: {
+        icon: 'bi-lightning-charge',
+        bg: 'bg-yellow-100',
+        text: 'text-yellow-600',
+    },
+    phone: {
+        icon: 'bi-phone',
+        bg: 'bg-emerald-100',
+        text: 'text-emerald-600',
+    },
+    other: {
+        icon: 'bi-three-dots',
+        bg: 'bg-gray-100',
+        text: 'text-gray-600',
+    }
+};
 
+document.querySelectorAll('.budget-card').forEach(card => {
+    const category = card.dataset.category;
+    const config = categoryMap[category] ?? categoryMap.other;
+
+    const iconWrapper = card.querySelector('.budget-icon');
+    const icon = iconWrapper.querySelector('i');
+
+    icon.className = `bi ${config.icon} ${config.text}`;
+    iconWrapper.classList.add(config.bg);
+});
+</script>
 @include('components.modals.budget-modal')
