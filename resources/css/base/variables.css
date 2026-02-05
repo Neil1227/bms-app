@@ -1,71 +1,105 @@
 :root {
-    /* ===============================
-       COLORS
+   /* ===============================
+       COLORS – LIGHT MODE
     =============================== */
 
-    --color-dark: #111827;
-    --color-dark-soft: #1f2933;
+   --color-dark: #111827;
+   /* buttons, accents */
+   --color-dark-soft: #e5e7eb;
+   /* borders, hover */
 
-    --color-light: #f8f9fa;
-    --color-white: #ffffff;
+   --color-light: #f8f9fa;
+   /* app background */
+   --color-white: #ffffff;
+   /* cards, modals */
 
-    --color-text: #222222;
-    --color-text-muted: #6b7280;
 
-    --color-danger: #ef4444;
-    --color-danger-hover: #dc2626;
+   --color-toggle-bg: #cfd4da;
+   /* toggle switch bg */
+   --color-toggle-circle: #ffffff;
+   /* toggle switch circle */
 
-    /* ===============================
+   --color-toggle-bg-active: #44c464;
+      /* toggle switch bg */
+   --color-toggle-circle-active: #e2e7ee;
+      /* toggle switch circle */
+
+
+   --color-btn-dark: #111827;
+   /* primary buttons */
+   --color-light-list: #f1f5f9;
+   /* list items */
+
+   --color-btn-text: #f9fafb;
+   /* primary button text */
+   --color-text: #111827;
+   /* main text */
+   --color-text-muted: #6b7280;
+   /* muted text */
+
+   /* ===============================
        TYPOGRAPHY
     =============================== */
-    --font-family-base: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-md: 1rem;
-    --font-size-lg: 1.125rem;
-    --font-size-xl: 1.25rem;
+   --font-family-base: -apple-system, system-ui, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-    --font-weight-regular: 400;
-    --font-weight-medium: 500;
-    --font-weight-bold: 700;
+   --font-size-xs: 0.75rem;
+   --font-size-sm: 0.875rem;
+   --font-size-md: 1rem;
+   --font-size-lg: 1.125rem;
+   --font-size-xl: 1.25rem;
 
-    /* ===============================
+   --font-weight-regular: 400;
+   --font-weight-medium: 500;
+   --font-weight-bold: 700;
+
+   /* ===============================
        SPACING
     =============================== */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
+   --space-xs: 0.25rem;
+   --space-sm: 0.5rem;
+   --space-md: 1rem;
+   --space-lg: 1.5rem;
+   --space-xl: 2rem;
 
-    /* ===============================
+   /* ===============================
        LAYOUT
     =============================== */
-    --container-width: 1200px;
-    --border-radius-sm: 4px;
-    --border-radius-md: 6px;
-    --border-radius-lg: 10px;
+   --container-width: 1200px;
+   --border-radius-sm: 4px;
+   --border-radius-md: 6px;
+   --border-radius-lg: 10px;
 
-    /* ===============================
+   /* ===============================
        TRANSITIONS
     =============================== */
-    --transition-fast: 0.15s ease-in-out;
-    --transition-base: 0.25s ease-in-out;
+   --transition-fast: 0.15s ease-in-out;
+   --transition-base: 0.25s ease-in-out;
 }
+
 .dark {
    /* ===============================
        COLORS – DARK MODE
     =============================== */
 
-   --color-dark: #f9fafb;
-   --color-dark-soft: #e5e7eb;
+   --color-dark: #e5e7eb;
+   /* light buttons on dark bg */
+   --color-dark-soft: #374151;
+   /* borders / hover */
 
-   --color-light: #111827;
-   --color-white: #1f2933;
+   --color-light: #0f172a;
+   /* app background */
+   --color-white: #1e293b;
+   /* cards, modals */
 
-   --color-text: #e5e7eb;
+   --color-btn-dark: #94a3b8;
+   --color-btn-text: #f9fafb;
+   /* primary buttons */
+   --color-light-list: #243447;
+   /* list items */
+
+   --color-text: #f9fafb;
+   /* main text */
    --color-text-muted: #9ca3af;
-
-   --color-danger: #f87171;
-   --color-danger-hover: #ef4444;
+   /* muted text */
 }

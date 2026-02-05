@@ -7,7 +7,7 @@
         <div class="section-header flex items-center justify-between">
             <div>
                 <h2 class="section-title">Budget Allocation</h2>
-                <p class="text-xs text-gray-500">Cut-off: {{ $cutoff['label'] }}</p>
+                <p class="text-xs text-gray-500">{{ $cutoff['label'] }}</p>
             </div>
 
             <a href="#addBudgetModal" class="add-btn btn-sm flex items-center gap-1">

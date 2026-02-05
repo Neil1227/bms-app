@@ -8,9 +8,9 @@ $totalDebt = $loans->sum('remaining_amount');
     <div class="section-header flex items-center justify-between mb-6">
         <div>
             <h2 class="section-title">Loan Management</h2>
-            <p class="mt-1 text-xs text-gray-500">
+            <p class="text-sm text-gray-500">
                 Total Debt:
-                <span class="font-semibold text-gray-800">
+                <span class="font-semibold text-emerald-600">
                     ₱{{ number_format($totalDebt, 2) }}
                 </span>
             </p>

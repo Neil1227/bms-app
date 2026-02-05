@@ -59,11 +59,29 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: var(--color-light-list);
     color: var(--color-text);
     border-radius: 12px;
     padding: 0.75rem .75rem; /* ensure inner spacing so content doesn't touch edges */
 }
+.loan-item {
+    padding: 1.25rem;
+    /* slightly more breathing room */
+    background: var(--color-light-list);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    /* consistent vertical spacing */
+}
 
+
+.loan-item .progress-track {
+    overflow: hidden;
+}
+
+.loan-item .progress-bar {
+    transition: width .35s ease;
+}
 /* Responsive */
 @media (max-width: 1024px) {
     .dashboard-section {

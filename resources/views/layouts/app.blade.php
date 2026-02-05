@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 </head>
 
-<body class="bg-gray-50">
+<body>
 
     {{-- Navbar --}}
     @include('components.navbar')
@@ -88,7 +88,24 @@
             });
         }, 3000);
     </script>
+<script>
+    const toggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
 
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'dark') {
+        root.classList.add('dark');
+        toggle.checked = true;
+    }
+
+    toggle.addEventListener('change', () => {
+        const isDark = toggle.checked;
+        root.classList.toggle('dark', isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+</script>
     {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
