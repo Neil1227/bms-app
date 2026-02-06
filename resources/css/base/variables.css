@@ -13,6 +13,8 @@
    --color-white: #ffffff;
    /* cards, modals */
 
+   --color-navbar-bg: #111827;
+   --color-navbar-logo: #f8f9fa;
 
    --color-toggle-bg: #cfd4da;
    /* toggle switch bg */
@@ -25,13 +27,16 @@
       /* toggle switch circle */
 
 
-   --color-btn-dark: #111827;
+   --color-btn: #111827;
    /* primary buttons */
+   --color-btn-text: #f9fafb;
+   /* primary button text */
+   --color-btn-hover: #243447;
+
    --color-light-list: #f1f5f9;
    /* list items */
 
-   --color-btn-text: #f9fafb;
-   /* primary button text */
+
    --color-text: #111827;
    /* main text */
    --color-text-muted: #6b7280;
@@ -76,7 +81,6 @@
    --transition-fast: 0.15s ease-in-out;
    --transition-base: 0.25s ease-in-out;
 }
-
 .dark {
    /* ===============================
        COLORS – DARK MODE
@@ -92,7 +96,10 @@
    --color-white: #1e293b;
    /* cards, modals */
 
-   --color-btn-dark: #94a3b8;
+   --color-navbar-bg: #243447;
+   --color-navbar-logo: #f8f9fa;
+
+   --color-btn: #94a3b8;
    --color-btn-text: #f9fafb;
    /* primary buttons */
    --color-light-list: #243447;

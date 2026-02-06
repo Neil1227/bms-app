@@ -49,7 +49,7 @@ $totalDebt = $loans->sum('remaining_amount');
 
                     <div>
                         <p class="text-sm font-medium text-gray-500">
-                            {{ $loan->loan_name }}
+                            {{ ucfirst($loan->loan_name) }}
                         </p>
                         <p class="text-xs text-gray-500">
                             ₱{{ number_format($loan->remaining_amount, 2) }} remaining

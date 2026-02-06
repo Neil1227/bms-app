@@ -1,5 +1,5 @@
 .navbar {
-    background: var(--color-dark);
+    background: var(--color-navbar-bg);
     padding: calc(var(--space-xs) * 1.5) 0;
     /* taller */
 }
@@ -17,7 +17,7 @@
 }
 
 .logo {
-    color: var(--color-white);
+    color: var(--color-navbar-logo);
     font-weight: var(--font-weight-bold);
     font-size: calc(var(--font-size-lg) * 1.1);
 }

@@ -20,7 +20,7 @@
 
 /* ===== MODAL BOX ===== */
 .modal-box {
-    background: #fff;
+    background: var(--color-white);
     width: 100%;
     max-width: 420px;
     border-radius: 16px;
@@ -59,7 +59,8 @@
 .modal-body select {
     width: 100%;
     padding: 0.6rem 0.7rem;
-    border: 1px solid #ddd;
+    border: 1px solid #727272;
+    color: #555;
     border-radius: 8px;
     font-size: 0.9rem;
 }
@@ -83,24 +84,6 @@
     margin-top: 1rem;
 }
 
-.btn {
-    padding: 0.45rem 0.9rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.btn.cancel {
-    background: #f3f4f6;
-    color: #333;
-}
-
-.btn.save {
-    background: var(--color-dark);
-    color: #fff;
-    border: none;
-}
 /* ===== TOGGLE SWITCH ===== */
 .toggle-row {
     display: flex;
@@ -113,10 +96,9 @@
     width: 100%;
     padding: 0.6rem 0.75rem;
     border-radius: 10px;
-    background-color: #fff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--color-white);
+    border: 1px solid #727272;
     font-size: 0.9rem;
-    color: #111827;
     outline: none;
     transition: all 0.2s ease;
     cursor: pointer;

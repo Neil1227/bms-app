@@ -39,7 +39,7 @@ default => 'bg-gray-300',
             @endif
         </div>
 
-        <div class="w-12 h-12 flex items-center justify-center rounded-full {{ $bgColor }}">
+        <div class="w-10 h-10 flex items-center justify-center rounded-full {{ $bgColor }}">
             <i class="bi {{ $icon }} {{ $iconColor }}"></i>
         </div>
     </div>

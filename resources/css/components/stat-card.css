@@ -1,12 +1,15 @@
-/* Grid wrapper */
+/* ===============================
+   GRID WRAPPER
+=============================== */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 3rem;
-    /* more breathing room */
 }
 
-/* Card */
+/* ===============================
+   CARD
+=============================== */
 .stat-card {
     position: relative;
     display: flex;
@@ -16,7 +19,7 @@
     min-height: 50px;
 
     background: var(--color-white);
-    border-radius: 18px;
+    border-radius: 0 0 18px 18px;
 
     box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
 }
@@ -25,18 +28,20 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    gap: 1.5rem;
+    /* gap: 1.5rem; */
 }
 
 .stat-card__accent {
     position: absolute;
     inset: 0 auto auto 0;
-    height: 6px;
+    height: 8px;
     width: 100%;
-    border-radius: 20px 20px 0 0;
+    border-radius: 18px 18px 0 0;
 }
 
-/* Icon */
+/* ===============================
+   ICON
+=============================== */
 .stat-card__icon {
     width: 42px;
     height: 42px;
@@ -47,20 +52,20 @@
 
     font-size: var(--font-size-xl);
     border-radius: 12px;
-
-    /* background: var(--color-dark); */
-    /* color: var(--color-white); */
 }
 
-/* Content */
+/* ===============================
+   CONTENT
+=============================== */
 .stat-card__content {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-    /* cleaner than margins */
 }
 
-/* Text */
+/* ===============================
+   TEXT
+=============================== */
 .stat-card__title {
     font-size: var(--font-size-sm);
     font-weight: 600;
@@ -78,6 +83,9 @@
     color: var(--color-text-muted);
 }
 
+/* ===============================
+   PAYDAY LINK
+=============================== */
 .payday-settings-section {
     display: flex;
     justify-content: flex-end;
@@ -92,9 +100,12 @@
     color: #374151;
 }
 
-/* ===== Tablet & below ===== */
+/* ===============================
+   TABLET & BELOW (2 / 2 GRID)
+=============================== */
 @media (max-width: 1024px) {
     .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
         gap: 1.75rem;
     }
 
@@ -104,7 +115,9 @@
     }
 }
 
-/* ===== Mobile ===== */
+/* ===============================
+   MOBILE
+=============================== */
 @media (max-width: 768px) {
     .stats-grid {
         gap: 1.25rem;
@@ -132,7 +145,9 @@
     }
 }
 
-/* ===== Small Mobile ===== */
+/* ===============================
+   SMALL MOBILE
+=============================== */
 @media (max-width: 480px) {
     .stats-grid {
         gap: 1rem;
@@ -143,13 +158,11 @@
         min-height: 105px;
     }
 
-    .stat-card__body {
-        gap: 0.75rem;
-    }
+
 
     .stat-card__icon {
-        width: 36px;
-        height: 36px;
+        width: 26px;
+        height: 26px;
         font-size: 1.1rem;
     }
 
@@ -161,32 +174,12 @@
         font-size: 0.7rem;
     }
 }
-/* ===== Tablet & below ===== */
-@media (max-width: 1024px) {
-    .stats-grid {
-        gap: 1.75rem;
-    }
-}
 
-/* ===== Mobile ===== */
-@media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.25rem;
-    }
-}
-
-/* ===== Small Mobile ===== */
-@media (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-}
-
-/* ===== Extra Small Mobile ===== */
+/* ===============================
+   EXTRA SMALL MOBILE (STACK)
+=============================== */
 @media (max-width: 360px) {
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 }

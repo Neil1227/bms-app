@@ -14,7 +14,7 @@
 }
 
 .add-btn {
-    background: var(--color-btn-dark);
+    background: var(--color-btn);
     color: var(--color-btn-text);
     /* keep small font but give more breathing room */
     font-size: var(--font-size-xs);
@@ -26,8 +26,8 @@
 }
 
 .add-btn:hover {
-    background: var(--color-btn-dark-soft);
-    color: var(--color-btntext);
+    background: var(--color-btn-hover);
+    color: var(--color-btn-text);
 }
 
 .list-trash-btn {
@@ -95,8 +95,8 @@
 }
 
 .make-payment-btn {
-    background: var(--color-btn-dark);
-    color: var(--color-btn-text);
+    background: var(--color-btn);
+        color: var(--color-btn-text);
     padding: 0.5rem 0.5rem;
     width: 100%;
     /* smaller vertical + horizontal */
@@ -109,11 +109,28 @@
 }
 
 .make-payment-btn:hover {
-    background: var(--color-dark-soft);
-    color: var(--color-white);
+    background: var(--color-btn-hover);
+    color: var(--color-btn-text);
 }
 
+.btn {
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: none;
+}
 
+.btn.cancel {
+    background: #f3f4f6;
+    color: #333;
+}
+
+.btn.save {
+    background: var(--color-btn);
+    color: var(--color-btn-text);
+    border: none;
+}
 .animate-fade-in {
     animation: fade-in .24s ease both;
 }
