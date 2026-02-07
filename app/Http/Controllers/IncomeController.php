@@ -2,28 +2,94 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Income;
+use App\Models\{
+    Income,
+    Budget,
+    Subscription,
+    PaydaySetting,
+    Loan
+};
 use Illuminate\Http\Request;
-use App\Models\Budget;
 use Carbon\Carbon;
-use App\Models\Subscription;
-use App\Models\PaydaySetting;
-use App\Models\Loan;
 
 class IncomeController extends Controller
 {
-
     public function index()
     {
+        $today = Carbon::today();
+        $activeCutoff = $this->getActiveCutoff($today);
+
+        // Income
         $incomes = Income::latest()->get();
         $totalIncome = $incomes->sum('amount');
 
+        // Payday & Salary
+        $payday = PaydaySetting::first();
+        [$nextPayday, $daysBeforePayday] = $this->getNextPayday($payday, $today);
+        $salaryPerCutoff = $this->calculateSalaryPerCutoff($payday, $totalIncome);
+
+        // Budgets
         $budgets = Budget::all();
-        $totalBudgetAllocated = $budgets->sum('amount');
+        $cutoffs = $this->groupBudgetsByCutoff($budgets);
+        $budgetForActiveCutoff = $budgets
+            ->where('cutoff', $activeCutoff)
+            ->sum('amount');
 
-        $availableBalance = $totalIncome - $totalBudgetAllocated;
+        $availableBalance = $totalIncome - $budgetForActiveCutoff;
 
-        $cutoffs = [
+
+        // Loans
+        $loans = Loan::latest()->get();
+        $loanCount = $loans->count();
+        $totalLoanDebt = $loans->sum('remaining_amount');
+
+        // Subscriptions
+        $subscriptions = Subscription::all();
+        $totalSubscriptions = $this->calculateMonthlySubscriptions($subscriptions);
+
+        return view('dashboard', compact(
+            'incomes',
+            'totalIncome',
+            'salaryPerCutoff',
+            'budgetForActiveCutoff',
+            'availableBalance',
+            'activeCutoff',
+            'cutoffs',
+            'subscriptions',
+            'totalSubscriptions',
+            'nextPayday',
+            'daysBeforePayday',
+            'loans',
+            'loanCount',
+            'totalLoanDebt'
+        ));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | HELPERS
+    |--------------------------------------------------------------------------
+    */
+
+    private function getActiveCutoff(Carbon $today): string
+    {
+        return request('cutoff')
+            ?? ($today->day <= 15 ? '1-15' : '16-30');
+    }
+
+    private function calculateSalaryPerCutoff(?PaydaySetting $payday, float $totalIncome): float
+    {
+        if (!$payday) return 0;
+
+        return match ($payday->frequency) {
+            'monthly', 'semi_monthly', 'bi_weekly' => $totalIncome / 2,
+            default => 0,
+        };
+    }
+
+    private function groupBudgetsByCutoff($budgets): array
+    {
+        return [
             [
                 'label' => '1st Cut-off',
                 'key'   => '1-15',
@@ -37,131 +103,87 @@ class IncomeController extends Controller
                 'total' => $budgets->where('cutoff', '16-30')->sum('amount'),
             ],
         ];
-        $today = Carbon::today();
-        $loans = Loan::latest()->get();
-        $loanCount = $loans->count();
-        $totalLoanDebt = $loans->sum('remaining_amount');
-
-        // ================================
-        // NEXT CUTOFF — SALARY ONLY
-        // ================================
-
-        $payday = PaydaySetting::first(); // single user for now
-        $today = Carbon::today();
-
-        $nextPayday = null;
-        $daysBeforePayday = null;
-
-        if ($payday) {
-
-            if ($payday->frequency === 'monthly') {
-
-                $nextPayday = Carbon::create(
-                    $today->year,
-                    $today->month,
-                    $payday->payday_1
-                );
-
-                if ($nextPayday->lt($today)) {
-                    $nextPayday->addMonth();
-                }
-            }
-
-            if ($payday->frequency === 'semi_monthly') {
-
-                $first = Carbon::create(
-                    $today->year,
-                    $today->month,
-                    $payday->payday_1
-                );
-
-                $second = Carbon::create(
-                    $today->year,
-                    $today->month,
-                    $payday->payday_2
-                );
-
-                if ($today->lte($first)) {
-                    $nextPayday = $first;
-                } elseif ($today->lte($second)) {
-                    $nextPayday = $second;
-                } else {
-                    $nextPayday = Carbon::create(
-                        $today->year,
-                        $today->month + 1,
-                        $payday->payday_1
-                    );
-                }
-            }
-
-            if ($payday->frequency === 'bi_weekly') {
-
-                $nextPayday = Carbon::parse($payday->start_date);
-
-                while ($nextPayday->lt($today)) {
-                    $nextPayday->addWeeks(2);
-                }
-            }
-
-            $daysBeforePayday = $today->diffInDays($nextPayday, false);
-        }
-
-
-        // Get ALL subscriptions (active + inactive)
-        $subscriptions = Subscription::all();
-
-        // Only ACTIVE subscriptions affect totals
-        $totalSubscriptions = $subscriptions
-            ->where('is_active', true)
-            ->sum(function ($s) {
-                return $s->billing_cycle === 'yearly'
-                    ? $s->amount / 12
-                    : $s->amount;
-            });
-
-
-        return view('dashboard', compact(
-            'incomes',
-            'totalIncome',
-            'totalBudgetAllocated',
-            'availableBalance',
-            'subscriptions',
-            'totalSubscriptions',
-            'cutoffs',
-            'nextPayday',
-            'daysBeforePayday',
-            'loans',
-            'loanCount',
-            'totalLoanDebt'
-        ));
     }
 
+    private function calculateMonthlySubscriptions($subscriptions): float
+    {
+        return $subscriptions
+            ->where('is_active', true)
+            ->sum(fn ($s) =>
+                $s->billing_cycle === 'yearly'
+                    ? $s->amount / 12
+                    : $s->amount
+            );
+    }
 
+    private function getNextPayday(?PaydaySetting $payday, Carbon $today): array
+    {
+        if (!$payday) return [null, null];
+
+        $nextPayday = match ($payday->frequency) {
+            'monthly' => $this->monthlyPayday($payday, $today),
+            'semi_monthly' => $this->semiMonthlyPayday($payday, $today),
+            'bi_weekly' => $this->biWeeklyPayday($payday, $today),
+            default => null,
+        };
+
+        return [
+            $nextPayday,
+            $nextPayday ? $today->diffInDays($nextPayday, false) : null
+        ];
+    }
+
+    private function monthlyPayday(PaydaySetting $payday, Carbon $today): Carbon
+    {
+        $date = Carbon::create($today->year, $today->month, $payday->payday_1);
+        return $date->lt($today) ? $date->addMonth() : $date;
+    }
+
+    private function semiMonthlyPayday(PaydaySetting $payday, Carbon $today): Carbon
+    {
+        $first = Carbon::create($today->year, $today->month, $payday->payday_1);
+        $second = Carbon::create($today->year, $today->month, $payday->payday_2);
+
+        return $today->lte($first)
+            ? $first
+            : ($today->lte($second) ? $second : $first->addMonth());
+    }
+
+    private function biWeeklyPayday(PaydaySetting $payday, Carbon $today): Carbon
+    {
+        $date = Carbon::parse($payday->start_date);
+        while ($date->lt($today)) {
+            $date->addWeeks(2);
+        }
+        return $date;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CRUD
+    |--------------------------------------------------------------------------
+    */
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'income_source' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0',
-            'category' => 'required|string',
-            'date' => 'required|date',
+            'amount'        => 'required|numeric|min:0',
+            'category'      => 'required|string',
+            'date'          => 'required|date',
         ]);
 
         Income::create([
-            'income_source' => $validated['income_source'],
-            'amount' => $validated['amount'],
-            'category' => $validated['category'],
-            'date' => $validated['date'],
-            'is_recurring' => $request->has('is_recurring'),
+            ...$validated,
+            'is_recurring' => $request->boolean('is_recurring'),
         ]);
 
-        return redirect()->back()->with('success', 'Income added successfully!');
+        return back()->with('success', 'Income added successfully!');
     }
 
     public function destroy(Income $income)
     {
         $income->delete();
-
-        return redirect()->back()->with('success', 'Income deleted successfully!');
+        return back()->with('success', 'Income deleted successfully!');
     }
 }

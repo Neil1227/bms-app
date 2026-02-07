@@ -38,17 +38,17 @@ $totalDebt = $loans->sum('remaining_amount');
         @endphp
 
         <!-- Loan Item -->
-        <div class="loan-item rounded-lg bg-gray-50 p-4 animate-fade-in">
+        <div class="loan-item rounded-lg bg-gray-50 p-2 animate-fade-in">
 
             <!-- Top -->
             <div class="flex justify-between items-start">
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
                     <div class="w-12 h-12 flex items-center justify-center rounded-full bg-teal-100 text-teal-600">
                         <i class="bi bi-wallet2"></i>
                     </div>
 
                     <div>
-                        <p class="text-sm font-medium text-gray-500">
+                        <p class="text-md font-medium">
                             {{ ucfirst($loan->loan_name) }}
                         </p>
                         <p class="text-xs text-gray-500">
@@ -64,21 +64,23 @@ $totalDebt = $loans->sum('remaining_amount');
             </div>
 
             <!-- Progress -->
-            <div class="mt-4">
-                <div class="h-2 w-full rounded-full bg-gray-200 overflow-hidden">
-                    <div class="h-full bg-teal-600 rounded-full" style="width: {{ $progress }}%"></div>
-                </div>
+<div class="mt-4">
+    <!-- Progress bar -->
+    <div class="h-2 w-full rounded-full bg-gray-200 overflow-hidden mb-3">
+        <div class="h-full bg-teal-600 rounded-full" style="width: {{ $progress }}%"></div>
+    </div>
 
-                <div class="mt-2 flex justify-between text-xs text-gray-500">
-                    <span>Progress</span>
-                    <span class="font-medium text-gray-500">
-                        {{ number_format($progress, 1) }}% paid
-                    </span>
-                </div>
-            </div>
+    <!-- Labels -->
+    <div class="flex justify-between text-sm text-gray-500">
+        <span>Progress</span>
+        <span class="font-medium text-gray-500">
+            {{ number_format($progress, 1) }}% paid
+        </span>
+    </div>
+</div>
 
             <!-- Meta -->
-            <div class="mt-4 grid grid-cols-3 gap-2 text-sm text-gray-600">
+            <div class=" grid grid-cols-3 gap-2 text-sm text-gray-600">
 
                 <!-- Monthly -->
                 <div class="flex items-center gap-2">

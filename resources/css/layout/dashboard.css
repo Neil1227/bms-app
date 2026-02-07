@@ -70,7 +70,7 @@
     background: var(--color-light-list);
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1rem;
     /* consistent vertical spacing */
 }
 
@@ -87,4 +87,44 @@
     .dashboard-section {
         grid-template-columns: 1fr;
     }
+}
+/* ===============================
+   CUTOFF TOGGLE
+================================ */
+
+.cutoff-toggle {
+    display: flex;
+    justify-content: satrt;
+}
+
+.cutoff-btn {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid #d1d5db;
+    /* gray-300 */
+    color: #6b7280;
+    /* gray-500 */
+    background: transparent;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.cutoff-btn:hover {
+    background: #f3f4f6;
+    /* gray-100 */
+}
+
+.cutoff-btn.active {
+    background: #0d9488;
+    /* teal-600 */
+    border-color: #0d9488;
+    color: #ffffff;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(13, 148, 136, 0.25);
+}
+
+.cutoff-btn.active:hover {
+    background: #0f766e;
+    /* teal-700 */
 }

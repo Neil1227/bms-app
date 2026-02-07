@@ -5,6 +5,7 @@
 'iconColor' => 'text-gray-500',
 'valueColor' => 'text-gray-900',
 'subtitle' => null,
+'clickable' => false,
 ])
 
 @php
@@ -16,6 +17,7 @@ $bgColor = match ($iconColor) {
 'text-violet-600' => 'bg-violet-100',
 default => 'bg-gray-100',
 };
+
 $accentColor = match ($iconColor) {
 'text-red-600' => 'bg-red-600',
 'text-green-600' => 'bg-green-600',
@@ -24,9 +26,11 @@ $accentColor = match ($iconColor) {
 'text-violet-600' => 'bg-violet-600',
 default => 'bg-gray-300',
 };
-
 @endphp
-<div class="stat-card relative animate-fade-in">
+
+<div class="stat-card relative animate-fade-in
+    {{ $clickable ? 'cursor-pointer hover:shadow-md transition' : '' }}">
+
     <!-- Accent bar -->
     <div class="stat-card__accent {{ $accentColor }}"></div>
 
@@ -34,12 +38,27 @@ default => 'bg-gray-300',
         <div class="stat-card__content">
             <p class="stat-card__title">{{ $title }}</p>
             <h2 class="stat-card__amount {{ $valueColor }}">{{ $value }}</h2>
+
             @if ($subtitle)
             <p class="stat-card__subtitle">{{ $subtitle }}</p>
             @endif
+
+            @if ($slot->isNotEmpty())
+            <div class="stat-card__extra mt-2">
+                {{ $slot }}
+            </div>
+            @endif
+
+            @if ($clickable)
+            <p class="text-xs text-gray-400 text-start mt-1">
+                Tap the card to  <br>
+                change cutoff view
+            </p>
+            @endif
         </div>
 
-        <div class="w-10 h-10 flex items-center justify-center rounded-full {{ $bgColor }}">
+        <!-- ICON -->
+        <div class="stat-card__icon w-10 h-10 flex items-center justify-center rounded-full {{ $bgColor }}">
             <i class="bi {{ $icon }} {{ $iconColor }}"></i>
         </div>
     </div>

@@ -23,7 +23,7 @@ class LoanController extends Controller
             'remaining_amount'   => 'required|numeric|min:0',
             'monthly_payment'    => 'required|numeric|min:0',
             'due_date'           => 'required|date',
-            'next_payment_date'  => 'required|date|after_or_equal:due_date',
+            'next_payment_date'  => 'required|date|before_or_equal:due_date',
         ]);
 
         Loan::create($validated);

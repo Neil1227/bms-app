@@ -43,7 +43,7 @@
 
                     <div class="mb-3">
                         <label>Next Payment Date</label>
-                        <input type="date" name="next_payment_date" required>
+                        <input type="date" name="next_payment_date" max="{{ old('due_date') }}">
                     </div>
                 </div>
             </div>

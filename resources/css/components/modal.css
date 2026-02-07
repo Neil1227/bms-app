@@ -52,7 +52,7 @@
     display: block;
     font-size: 0.85rem;
     margin-bottom: 0.25rem;
-    color: #555;
+    color: var(--color-dark);
 }
 
 .modal-body input,
@@ -60,7 +60,7 @@
     width: 100%;
     padding: 0.6rem 0.7rem;
     border: 1px solid #727272;
-    color: #555;
+    color: var(--color-dark);
     border-radius: 8px;
     font-size: 0.9rem;
 }
@@ -97,7 +97,6 @@
     padding: 0.6rem 0.75rem;
     border-radius: 10px;
     background-color: var(--color-white);
-    border: 1px solid #727272;
     font-size: 0.9rem;
     outline: none;
     transition: all 0.2s ease;
@@ -108,6 +107,7 @@
     -moz-appearance: none;
     appearance: none;
 }
+
 /* ===== FORM ROW (2 COLUMNS) ===== */
 .form-row {
     display: grid;

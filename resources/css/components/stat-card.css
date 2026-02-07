@@ -38,7 +38,9 @@
     width: 100%;
     border-radius: 18px 18px 0 0;
 }
-
+.stat-card:hover {
+    transform: translateY(-2px);
+}
 /* ===============================
    ICON
 =============================== */
@@ -51,7 +53,6 @@
     justify-content: center;
 
     font-size: var(--font-size-xl);
-    border-radius: 12px;
 }
 
 /* ===============================
@@ -154,27 +155,50 @@
     }
 
     .stat-card {
-        padding: 1.1rem;
-        min-height: 105px;
+        padding: 1.25rem 1.1rem;
+        min-height: auto;
+        border-radius: 16px;
     }
 
+    /* Stack everything */
+    .stat-card__body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.6rem;
+    }
 
-
+    /* Icon at the top */
     .stat-card__icon {
-        width: 26px;
-        height: 26px;
-        font-size: 1.1rem;
+        order: -1;
+        width: 38px;
+        height: 38px;
+        font-size: 1.15rem;
+        border-radius: 999px;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Content spacing */
+    .stat-card__content {
+        gap: 0.25rem;
+    }
+
+    /* Typography tuning */
+    .stat-card__title {
+        font-size: 0.75rem;
+        letter-spacing: 0.02em;
     }
 
     .stat-card__amount {
-        font-size: 1.15rem;
+        font-size: 1.35rem;
+        font-weight: 700;
+        line-height: 1.1;
     }
 
     .stat-card__subtitle {
         font-size: 0.7rem;
     }
 }
-
 /* ===============================
    EXTRA SMALL MOBILE (STACK)
 =============================== */
