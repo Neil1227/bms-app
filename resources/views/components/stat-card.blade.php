@@ -6,6 +6,8 @@
 'valueColor' => 'text-gray-900',
 'subtitle' => null,
 'clickable' => false,
+'clickablemodal' => false,
+'href' => null,
 ])
 
 @php
@@ -28,38 +30,53 @@ default => 'bg-gray-300',
 };
 @endphp
 
-<div class="stat-card relative animate-fade-in
+@if($clickable && $href)
+<a href="{{ $href }}" class="block focus:outline-none">
+    @endif
+
+    <div class="stat-card relative animate-fade-in
     {{ $clickable ? 'cursor-pointer hover:shadow-md transition' : '' }}">
 
-    <!-- Accent bar -->
-    <div class="stat-card__accent {{ $accentColor }}"></div>
+        <!-- Accent bar -->
+        <div class="stat-card__accent {{ $accentColor }}"></div>
 
-    <div class="stat-card__body">
-        <div class="stat-card__content">
-            <p class="stat-card__title">{{ $title }}</p>
-            <h2 class="stat-card__amount {{ $valueColor }}">{{ $value }}</h2>
+        <div class="stat-card__body">
+            <div class="stat-card__content">
+                <p class="stat-card__title">{{ $title }}</p>
+                <h2 class="stat-card__amount {{ $valueColor }}">{{ $value }}</h2>
 
-            @if ($subtitle)
-            <p class="stat-card__subtitle">{{ $subtitle }}</p>
-            @endif
+                @if ($subtitle)
+                <p class="stat-card__subtitle">{{ $subtitle }}</p>
+                @endif
 
-            @if ($slot->isNotEmpty())
-            <div class="stat-card__extra mt-2">
-                {{ $slot }}
+                @if ($slot->isNotEmpty())
+                <div class="stat-card__extra mt-2">
+                    {{ $slot }}
+                </div>
+                @endif
+
+                @if ($clickable)
+                <p class="text-[10px] text-gray-400 text-start mt-1">
+                    Tap to
+                    change cutoff view
+                </p>
+                @endif
+
+                @if($clickablemodal)
+                <p class="text-[10px] text-gray-400 text-start mt-1">
+                        Tap to
+                        set your payday
+                    </p>
+                @endif
             </div>
-            @endif
 
-            @if ($clickable)
-            <p class="text-xs text-gray-400 text-start mt-1">
-                Tap the card to  <br>
-                change cutoff view
-            </p>
-            @endif
-        </div>
-
-        <!-- ICON -->
-        <div class="stat-card__icon w-10 h-10 flex items-center justify-center rounded-full {{ $bgColor }}">
-            <i class="bi {{ $icon }} {{ $iconColor }}"></i>
+            <!-- ICON -->
+            <div class="stat-card__icon w-10 h-10 flex items-center justify-center rounded-full {{ $bgColor }}">
+                <i class="bi {{ $icon }} {{ $iconColor }}"></i>
+            </div>
         </div>
     </div>
-</div>
+
+    @if($clickable && $href)
+</a>
+@endif
